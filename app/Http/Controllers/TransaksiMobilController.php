@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rental;
 use Illuminate\Http\Request;
 use App\Models\Ui;
+use PDF;
+
+// use Barryvdh\DomPDF\Facade\Pdf;
 
 class TransaksiMobilController extends Controller
 {
@@ -44,9 +48,29 @@ class TransaksiMobilController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function pdfexport(Request $request)
+    {
+        $tgl1 = $request->tgl_1;
+        $tgl2 = $request->tgl_2;
+        $status = $request->status;
+
+        $data = Ui::whereBetween('tgl_dp', [$tgl1, $tgl2])->where('status', 'like', "%" . $status . "%")->get();
+        // view()->share('data', $data);
+        // dd($data);
+        // dd($tgl1, $tgl2);
+        // return view('mobil.transaksi.pdf', compact('tgl1', 'tgl2'))->with('data', $data);
+        $pdf=PDF::loadview('mobil.transaksi.pdf', compact('tgl1', 'tgl2', 'data'));
+        return $pdf->download('data.pdf');
+    }
+    public function pdf(Request $request)
+    {
+        $data = Rental::all();
+        view()->share('data', $data);
+        $pdf=PDF::loadview('mobil.transaksi.pdf');
+        return $pdf->download('data.pdf');
+    }
     public function store(Request $request)
     {
-        //
     }
 
     /**

@@ -266,7 +266,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Tanggal Sewa</label>
-                                                        <input type="datetime-local" name="tgl_sewa"
+                                                        <input type="date" name="tgl_sewa"
                                                             class="form-control @error('tgl_sewa') is-invalid @enderror"
                                                             placeholder="tgl Sewa" value="{{ old('tgl_sewa') }}"
                                                             id="d1" onchange="calday()">
@@ -279,7 +279,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Tanggal Kembali</label>
-                                                        <input type="datetime-local" name="tgl_kembali"
+                                                        <input type="date" name="tgl_kembali"
                                                             class="form-control @error('tgl_kembali') is-invalid @enderror"
                                                             placeholder="tgl kembali" value="{{ old('tgl_kembali') }}"
                                                             id="d2" onchange="calday()">

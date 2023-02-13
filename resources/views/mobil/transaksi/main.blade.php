@@ -28,7 +28,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <form action="" target="print_data_kontrak" method="get"
+                                <form action="{{ url('pdf-transaksi') }}" target="print_data" method="get"
                                     enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-md-3">
@@ -49,16 +49,16 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
 
-                                                <select class="form-control select2" style="width: 100%;" name="total_dp">
+                                                <select class="form-control select2" style="width: 100%;" name="status">
                                                     <option value="">Semua
                                                     </option>
-                                                    <option value="">Menunggu
+                                                    {{-- <option value="Menunggu">Menunggu
+                                                    </option> --}}
+                                                    <option value="Dipesan">Dipesan
                                                     </option>
-                                                    <option value="">Dipesan
+                                                    <option value="Disewa">Disewa
                                                     </option>
-                                                    <option value="">Disewa
-                                                    </option>
-                                                    <option value="">Dikembalikan
+                                                    <option value="Dikembalikan">Dikembalikan
                                                     </option>
                                                 </select>
                                             </div>
@@ -68,6 +68,7 @@
                                             <button onclick="javascript: return confirm('Print Data Kontrak?')"
                                                 class="btn btn-primary btn-md"><i class="fa fa-print"></i> Print</button>
                                         </div>
+
                                     </div>
 
                                 </form>
@@ -83,15 +84,20 @@
                                 <table id="example1" class="table table-bordered table-striped table-sm">
                                     <thead>
                                         <tr class="text-center">
-                                            <th width="30">No</th>
-                                            <th>Kode</th>
-                                            <th>Nama</th>
-                                            <th>Nik</th>
-                                            <th>Tanggal Sewa</th>
-                                            <th>Tanggal Kembali</th>
-                                            <th>Faktur</th>
-                                            <th>Status</th>
-                                            <th width="60">Aksi</th>
+                                            <th width="30" rowspan="2">No</th>
+                                            <th rowspan="2">Kode</th>
+                                            <th rowspan="2">Nama</th>
+                                            <th rowspan="2">Nik</th>
+                                            <th colspan="2">Tanggal</th>
+                                            {{-- <th rowspan="2">Tanggal Kembali</th> --}}
+                                            <th rowspan="2">Hari</th>
+                                            <th rowspan="2">Faktur</th>
+                                            <th rowspan="2">Status</th>
+                                            <th width="60" rowspan="2">Aksi</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Sewa</th>
+                                            <th>Kembali</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -102,8 +108,9 @@
                                                 <td>{{ $tm->kode }}</td>
                                                 <td>{{ $tm->nama }}</td>
                                                 <td>{{ $tm->nik }}</td>
-                                                <td>{{ date('Y-m-d H:i', strtotime($tm->tgl_sewa)) }}</td>
-                                                <td>{{ date('Y-m-d H:i', strtotime($tm->tgl_kembali)) }}</td>
+                                                <td>{{ date('d/m/Y H:i', strtotime($tm->tgl_sewa)) }}</td>
+                                                <td>{{ date('d/m/Y H:i', strtotime($tm->tgl_kembali)) }}</td>
+                                                <td>{{ $tm->hari }}&nbspHari</td>
                                                 <td>{{ $tm->faktur }}</td>
                                                 <td>{{ $tm->status }}</td>
                                                 <td>
@@ -120,15 +127,17 @@
                                     </tbody>
                                     <tfoot>
                                         <tr class="text-center">
-                                            <th width="30">No</th>
-                                            <th>Kode</th>
-                                            <th>Nama</th>
-                                            <th>Nik</th>
-                                            <th>Tanggal Sewa</th>
-                                            <th>Tanggal Kembali</th>
-                                            <th>Faktur</th>
-                                            <th>Status</th>
-                                            <th width="60">Aksi</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            </th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                 </table>

@@ -57,6 +57,8 @@ route::patch('/ren-mobil/{kode}{id}/editmobil', [RentalController::class, 'editm
 
 
 route::get('/transaksi-mobil', [TransaksiMobilController::class, 'index'])->name('transaksi-mobil');
+route::get('/pdf-transaksi', [TransaksiMobilController::class, 'pdfexport'])->name('pdfexport');
+route::get('/PDF/create', [TransaksiMobilController::class, 'pdf'])->name('pdf');
 
 route::get('/metode-payment', [RekeningController::class, 'index'])->name('metode-payment');
 route::get('/payment/create', [RekeningController::class, 'create']);

@@ -258,7 +258,7 @@
                                                 <input type="hidden" name="status" value="Kosong">
                                                 <input type="hidden" name="role_id" value="1">
                                                 <input type="hidden" name="kode" value="{{ $kode }}">
-                                                <input type="hidden" name="tgl_dp" value="{{ date('Y/m/d H:i') }}">
+                                                <input type="hidden" name="tgl_dp" value="{{ date('Y-m-d H:i') }}">
 
 
                                                 <div class="col-md-6">
