@@ -6,6 +6,7 @@ use App\Models\Rental;
 use Illuminate\Http\Request;
 use App\Models\Ui;
 use PDF;
+use Illuminate\Support\Facades\DB;
 
 // use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -53,14 +54,19 @@ class TransaksiMobilController extends Controller
         $tgl1 = $request->tgl_1;
         $tgl2 = $request->tgl_2;
         $status = $request->status;
+        // $tarik = Ui::where('role_id', 1)->get();
+        // $pendapatan = array_sum($tarik->total_dp);
+        $pendapatan = DB::table('rentmobils')->select('rentmobils.total_dp')->sum('rentmobils.total_dp');
+        // dd($tarik);
+        // dd($pendapatan);
 
         $data = Ui::whereBetween('tgl_dp', [$tgl1, $tgl2])->where('status', 'like', "%" . $status . "%")->get();
         // view()->share('data', $data);
         // dd($data);
         // dd($tgl1, $tgl2);
-        // return view('mobil.transaksi.pdf', compact('tgl1', 'tgl2'))->with('data', $data);
-        $pdf=PDF::loadview('mobil.transaksi.pdf', compact('tgl1', 'tgl2', 'data'));
-        return $pdf->download('data.pdf');
+        // return view('mobil.transaksi.pdf', compact('tgl1', 'tgl2', 'pendapatan'))->with('data', $data);
+        $pdf=PDF::loadview('mobil.transaksi.pdf', compact('tgl1', 'tgl2', 'data', 'pendapatan'));
+        return $pdf->download('laporan-mobil.pdf');
     }
     public function pdf(Request $request)
     {

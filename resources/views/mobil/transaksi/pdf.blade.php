@@ -79,6 +79,7 @@
                 <th rowspan="2">Faktur</th>
                 <th rowspan="2">Status</th>
                 <th rowspan="2">Total Deposit</th>
+                <th rowspan="2">Pembayaran</th>
                 <th rowspan="2">Total Pembayaran</th>
             </tr>
             <tr>
@@ -90,6 +91,16 @@
         <tbody>
 
             @foreach ($data as $tm)
+                @if ($tm->total_dp == $tm->total_pembayaran)
+                    @php
+                        $deposit = 'Lunas';
+                    @endphp
+                @else
+                    @php
+                        $deposit = '50 %';
+                    @endphp
+                @endif
+
                 <tr class="text-center" align="center">
                     <td align="center">{{ $loop->iteration }}</td>
                     <td>{{ $tm->kode }}</td>
@@ -99,16 +110,26 @@
                     <td>{{ date('d/m/Y H:i', strtotime($tm->tgl_sewa)) }}</td>
                     <td>{{ date('d/m/Y H:i', strtotime($tm->tgl_kembali)) }}</td>
                     <td>{{ date('d/m/Y', strtotime($tm->tgl_dp)) }}</td>
-                    <td>{{ $tm->hari }}&nbspHari</td>
+                    <td>{{ $tm->hari }} Hari</td>
                     <td>{{ $tm->faktur }}</td>
                     <td>{{ $tm->status }}</td>
                     <td>Rp.
                         {{ number_format($tm->total_dp, 0, ',', '.') }}</td>
+                    <td>{{ $deposit }}</td>
                     <td>Rp.
                         {{ number_format($tm->total_pembayaran, 0, ',', '.') }}</td>
 
                 </tr>
             @endforeach
+        <tfoot>
+            <tr class="text-center">
+                <th colspan="11" align="right">Total Pendapatan </th>
+                <th>Rp.
+                    {{ number_format($pendapatan, 0, ',', '.') }}</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot>
         </tbody>
     </table>
     <br>
