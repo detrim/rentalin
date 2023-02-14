@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Rental as rental;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class RentalController extends Controller
 {

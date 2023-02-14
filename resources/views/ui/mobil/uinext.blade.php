@@ -214,11 +214,16 @@
                             <!-- left column -->
                             <div class="col-md-12">
                                 <!-- general form elements -->
-
+                                @foreach ($users_id as $usr_id)
+                                    @php
+                                        $us_id = $usr_id->id;
+                                        
+                                    @endphp
+                                @endforeach
 
                                 <!-- /.card-header -->
                                 <!-- form start -->
-                                <form method="POST" action="{{ url('two-mob/' . $faktur . '/cetak') }}"
+                                <form method="POST" action="{{ url('two-mob/' . $faktur . $us_id . '/cetak') }}"
                                     enctype="multipart/form-data">
                                     @method('PATCH')
                                     @csrf
@@ -253,11 +258,14 @@
                                                     </div>
                                                 </div>
 
+                                                <input type="hidden" name="faktur" value="{{ $faktur }}">
+                                                <input type="hidden" name="invoice" value="{{ $inv }}">
                                                 <input type="hidden" name="total_pembayaran"
                                                     value="{{ $total }}">
                                                 <input type="hidden" name="status" value="Kosong">
                                                 <input type="hidden" name="role_id" value="1">
                                                 <input type="hidden" name="kode" value="{{ $kode }}">
+                                                <input type="text" name="id" value="{{ $us_id }}">
                                                 <input type="hidden" name="tgl_dp" value="{{ date('Y-m-d H:i') }}">
 
 
@@ -302,8 +310,6 @@
                                                     </div>
                                                 </div>
 
-                                                <input type="hidden" name="faktur" value="{{ $faktur }}">
-                                                <input type="hidden" name="invoice" value="{{ $inv }}">
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -318,7 +324,8 @@
 
 
                                             <div class="card-footer text-right">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary"
+                                                    onclick="javascript: return confirm('Apakah data sudah benar ?')">Submit</button>
                                             </div>
                                         </div>
 

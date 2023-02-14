@@ -39,7 +39,7 @@
                                 $total = $us->total_pembayaran;
                                 $dp = $us->total_dp;
                                 $tagihan = $us->total_pembayaran - $us->total_dp;
-
+                                
                                 $nama = $us->nama;
                                 $nik = $us->nik;
                                 $no_telp = $us->no_telp;
@@ -53,7 +53,7 @@
                                 $ktp = $us->ktp;
                                 $rk = $us->rk;
                                 $no = 1;
-
+                                
                             @endphp
 
                             @if ($dp == $total)
@@ -69,7 +69,7 @@
                         <!-- Main content -->
                         @foreach ($rek as $rekening)
                             @php
-
+                                
                                 $nama_rekening = $rekening->nama;
                             @endphp
                         @endforeach
@@ -216,11 +216,13 @@
                                 <!-- /.col -->
                             </div>
                             <!-- /.row -->
-
+                            @php
+                                $dd = '%';
+                            @endphp
                             <!-- this row will not appear when printing -->
                             <div class="row no-print">
                                 <div class="col-12">
-                                    <a href="{{ url('nextbuktimob/' . $faktur . '/bukti_print') }}" rel="noopener"
+                                    <a href="{{ url('nextbuktimob/' . $faktur . $dd . '/bukti_print') }}" rel="noopener"
                                         target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
 
                                     <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">

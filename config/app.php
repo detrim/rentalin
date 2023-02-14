@@ -70,7 +70,7 @@ return [
     */
 
     'timezone' => 'Asia/Jakarta',
-    'locale' => 'id',
+    // 'locale' => 'id',
     'faker_locale' => 'id_ID',
 
     // 'timezone' => 'UTC',
@@ -86,7 +86,7 @@ return [
     |
     */
 
-    // 'locale' => 'en',
+    'locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------

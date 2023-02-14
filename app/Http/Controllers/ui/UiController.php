@@ -10,6 +10,10 @@ use App\Models\Metodepayment;
 use App\Models\Rental as rental;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
+use Termwind\Components\Dd;
 
 class UiController extends Controller
 {
@@ -28,7 +32,7 @@ class UiController extends Controller
             'renmobil' => Rental::orderBY('id', 'desc')->get(),
         ]);
     }
-    public function next(request $request, $faktur, $id)
+    public function next(request $request, $faktur, $dd)
     {
         $rkk = Rekening::orderBY('id', 'desc')->get();
         $invoice = Invoice::count();
@@ -41,17 +45,20 @@ class UiController extends Controller
             $inv = 'INV' . $nourut;
         }
         // $fk = $faktur;
-        $users = DB::table('rentmobils')->join('mobils', 'rentmobils.kode', '=', 'mobils.kode')->select('rentmobils.*', 'mobils.*')->where('rentmobils.id', $id)->get();
-        // dd($id);
-        // dd($users);
+        $users = DB::table('rentmobils')->join('mobils', 'rentmobils.kode', '=', 'mobils.kode')->select('rentmobils.*', 'mobils.kode', 'mobils.nama_mobil', 'mobils.warna', 'mobils.nopol', 'mobils.harga_sewa', 'mobils.status', 'mobils.photos')->where('rentmobils.faktur', $faktur)->limit(1)->orderByDesc('id')->get();
+        $users_id = DB::table('rentmobils')->join('mobils', 'rentmobils.kode', '=', 'mobils.kode')->select('rentmobils.id')->where('rentmobils.faktur', $faktur)->limit(1)->orderByDesc('id')->get();
+        // dd($faktur);
+        // dd($users_id);
         // dd($rk);
-        return view('ui.mobil.uinext', compact('inv', 'rkk'))->with('users', $users);
+        return view('ui.mobil.uinext', compact('inv', 'rkk', 'users_id'))->with('users', $users);
     }
     public function bukti(Ui $ui, $faktur, $id)
     {
         // $rkk = Rekening::orderBY('id', 'desc')->get();
-        $users = DB::table('rentmobils')->join('mobils', 'rentmobils.kode', '=', 'mobils.kode')->join('invoices', 'rentmobils.faktur', '=', 'invoices.faktur')->join('rekenings', 'rentmobils.rk', '=', 'rekenings.rk')->select('rentmobils.*', 'mobils.*', 'invoices.*', 'rekenings.rk', 'rekenings.nama_rk', 'rekenings.icon')->where('rentmobils.id', $id)->get();
-        $rek = DB::table('rentmobils')->join('rekenings', 'rentmobils.rk', '=', 'rekenings.rk')->select('rentmobils.rk', 'rekenings.*')->where('rentmobils.id', $id)->get();
+
+        $users = DB::table('rentmobils')->join('mobils', 'rentmobils.kode', '=', 'mobils.kode')->join('invoices', 'rentmobils.faktur', '=', 'invoices.faktur')->join('rekenings', 'rentmobils.rk', '=', 'rekenings.rk')->select('rentmobils.*', 'mobils.kode', 'mobils.nama_mobil', 'mobils.warna', 'mobils.nopol', 'mobils.harga_sewa', 'mobils.status', 'mobils.photos', 'invoices.invoice', 'invoices.faktur', 'rekenings.rk', 'rekenings.nama_rk', 'rekenings.icon')->where('rentmobils.faktur', $faktur)->limit(1)->orderByDesc('id')->get();
+        $rek = DB::table('rentmobils')->join('rekenings', 'rentmobils.rk', '=', 'rekenings.rk')->select('rentmobils.id', 'rekenings.rk', 'rekenings.nama_rk', 'rekenings.nama', 'rekenings.icon')->where('rentmobils.faktur', $faktur)->limit(1)->orderByDesc('id')->get();
+        // dd($users, $rek);
 
 
 
@@ -60,46 +67,109 @@ class UiController extends Controller
     }
     public function bukti_print(Ui $ui, $faktur, $id)
     {
+        // dd($faktur);
         // $rkk = Rekening::orderBY('id', 'desc')->get();
-        $users = DB::table('rentmobils')->join('mobils', 'rentmobils.kode', '=', 'mobils.kode')->join('invoices', 'rentmobils.faktur', '=', 'invoices.faktur')->join('rekenings', 'rentmobils.rk', '=', 'rekenings.rk')->select('rentmobils.*', 'mobils.*', 'invoices.*', 'rekenings.rk', 'rekenings.nama_rk', 'rekenings.icon')->where('rentmobils.id', $id)->get();
-        $rek = DB::table('rentmobils')->join('rekenings', 'rentmobils.rk', '=', 'rekenings.rk')->select('rentmobils.rk', 'rekenings.*')->where('rentmobils.id', $id)->get();
-
+        $users = DB::table('rentmobils')->join('mobils', 'rentmobils.kode', '=', 'mobils.kode')->join('invoices', 'rentmobils.faktur', '=', 'invoices.faktur')->join('rekenings', 'rentmobils.rk', '=', 'rekenings.rk')->select('rentmobils.*', 'mobils.kode', 'mobils.nama_mobil', 'mobils.warna', 'mobils.nopol', 'mobils.harga_sewa', 'mobils.status', 'mobils.photos', 'invoices.invoice', 'invoices.faktur', 'rekenings.rk', 'rekenings.nama_rk', 'rekenings.icon')->where('rentmobils.faktur', $faktur)->limit(1)->orderByDesc('id')->get();
+        $rek = DB::table('rentmobils')->join('rekenings', 'rentmobils.rk', '=', 'rekenings.rk')->select('rentmobils.id', 'rekenings.rk', 'rekenings.nama_rk', 'rekenings.nama', 'rekenings.icon')->where('rentmobils.faktur', $faktur)->limit(1)->orderByDesc('id')->get();
+        // dd($users, $rek);
 
         // return view('ui.mobil.uinextbukti', compact('rkk'))->with('users', $users);
         return view('ui.mobil.print', compact('rek'))->with('users', $users);
     }
     public function uinext(Request $request)
     {
-        $validatedData = $request->validate([
-            'kode' => 'required',
-            'nama' => 'required',
-            'ktp' => 'required',
-            'nik' => 'required',
-            'no_telp' => 'required',
-            'tgl_sewa' => 'required',
-            'tgl_kembali' => 'required',
-            // 'hari' => 'required',
-            'faktur' => 'required',
-            ]);
-
         $faktur = $request->faktur;
-        $d1 = $request->tgl_sewa;
-        $d2 = $request->tgl_kembali;
-        $dd = 1;
-        $status = "Menunggu";
+        // $doubleData = Ui::find($faktur);
+        $doubleData =  DB::table('rentmobils')->select('faktur')->where('faktur', $faktur)->limit(1)->orderByDesc('id')->first();
+        // if ($doubleFkData !== $faktur) {
+        // $doubleData = Ui::where('faktur', $faktur)->first();
+        // foreach ($doubleData as $value) {
+        //     $fk = $value->faktur;
+        // }
 
-        $date1=date_create($d1);
-        $date2=date_create($d2);
-        $diff=date_diff($date1, $date2) ;
+        // dd($doubleData, $faktur);
+        if (empty($doubleData)) {
+            $validatedData = $request->validate([
+                'kode' => 'required',
+                'nama' => 'required',
+                'ktp' => 'required',
+                'nik' => 'required',
+                'no_telp' => 'required',
+                'tgl_sewa' => 'required',
+                'tgl_kembali' => 'required',
+                // 'hari' => 'required',
+                'faktur' => 'required',
+                ]);
 
-        $days = $diff->format("%a");
-        $hari = $dd + $days;
+            $d1 = $request->tgl_sewa;
+            $d2 = $request->tgl_kembali;
+            $dd = "%";
+            $status = "Menunggu";
+
+            $date1=date_create($d1);
+            $date2=date_create($d2);
+            $diff=date_diff($date1, $date2) ;
+
+            $days = $diff->format("%a");
+            $hari =  $days;
+            // dd($hari);
+
+            if ($request->file('ktp')) {
+                $validatedData['ktp'] = $request->file('ktp')->store('photos');
+            }
+            DB::table('rentmobils')->insert([
+                    'hari' => $hari,
+                    'kode' => $request->kode,
+                    'nama' => $request->nama,
+                    'ktp' => $validatedData['ktp'],
+                    'nik' =>$request->nik,
+                    'no_telp' => $request->no_telp,
+                    'tgl_sewa' => $request->tgl_sewa,
+                    'tgl_kembali' => $request->tgl_kembali,
+                    'faktur' => $request->faktur,
+                    'status' => $status,
+                    'created_at' => date('Y-m-d H:i:s'),
+
+            ]);
+            return redirect('nextmobil/'. $faktur. $dd. '/faktur');
+        } else {
+            // foreach ($doubleData as $key) {
+            //     $fk = $key->faktur;
+            // }
+            // dd($fk);
+
+            $validatedData = $request->validate([
+                'kode' => 'required',
+                'nama' => 'required',
+                'ktp' => 'required',
+                'nik' => 'required',
+                'no_telp' => 'required',
+                'tgl_sewa' => 'required',
+                'tgl_kembali' => 'required',
+                // 'hari' => 'required',
+                'faktur' => 'required',
+                ]);
+
+            $d1 = $request->tgl_sewa;
+            $d2 = $request->tgl_kembali;
+            $dd = "%";
+            $status = "Menunggu";
+
+            $date1=date_create($d1);
+            $date2=date_create($d2);
+            $diff=date_diff($date1, $date2) ;
+
+            $days = $diff->format("%a");
+            $hari =  $days;
+            // dd($hari);
+
+            if ($request->file('ktp')) {
+                $validatedData['ktp'] = $request->file('ktp')->store('photos');
+            }
 
 
-        if ($request->file('ktp')) {
-            $validatedData['ktp'] = $request->file('ktp')->store('photos');
-        }
-        DB::table('rentmobils')->insert([
+            // dd($faktur, $doubleFkData);
+            DB::table('rentmobils')->where('faktur', $faktur)->update([
             'hari' => $hari,
             'kode' => $request->kode,
             'nama' => $request->nama,
@@ -108,28 +178,131 @@ class UiController extends Controller
             'no_telp' => $request->no_telp,
             'tgl_sewa' => $request->tgl_sewa,
             'tgl_kembali' => $request->tgl_kembali,
-            'faktur' => $request->faktur,
+            // 'faktur' => $request->faktur,
             'status' => $status,
+            ]);
 
-        ]);
-        // dd($d1, $validatedData);
+            return redirect('nextmobil/'. $faktur. $dd. '/faktur');
+        }
+
+
+
+
+        // dd($faktur, $doubleFkData, $doubleIdData);
+        // dd($fk, $faktur);
+        // $validatedData = $request->validate([
+        //     'kode' => 'required',
+        //     'nama' => 'required',
+        //     'ktp' => 'required',
+        //     'nik' => 'required',
+        //     'no_telp' => 'required',
+        //     'tgl_sewa' => 'required',
+        //     'tgl_kembali' => 'required',
+        //     // 'hari' => 'required',
+        //     'faktur' => 'required',
+        //     ]);
+
+        // $d1 = $request->tgl_sewa;
+        // $d2 = $request->tgl_kembali;
+        // $dd = "%";
+        // $status = "Menunggu";
+
+        // $date1=date_create($d1);
+        // $date2=date_create($d2);
+        // $diff=date_diff($date1, $date2) ;
+
+        // $days = $diff->format("%a");
+        // $hari =  $days;
+        // dd($hari);
+
+        // if ($request->file('ktp')) {
+        //     $validatedData['ktp'] = $request->file('ktp')->store('photos');
+        // }
+        // DB::table('rentmobils')->insert([
+        //     'hari' => $hari,
+        //     'kode' => $request->kode,
+        //     'nama' => $request->nama,
+        //     'ktp' => $validatedData['ktp'],
+        //     'nik' =>$request->nik,
+        //     'no_telp' => $request->no_telp,
+        //     'tgl_sewa' => $request->tgl_sewa,
+        //     'tgl_kembali' => $request->tgl_kembali,
+        //     'faktur' => $request->faktur,
+        //     'status' => $status,
+
+        // ]);
+
+        // if ($faktur == $fk) {
+        //     // dd($faktur, $doubleFkData);
+        //     DB::table('rentmobils')->where('faktur', $faktur)->update([
+        //     'hari' => $hari,
+        //     'kode' => $request->kode,
+        //     'nama' => $request->nama,
+        //     'ktp' => $validatedData['ktp'],
+        //     'nik' =>$request->nik,
+        //     'no_telp' => $request->no_telp,
+        //     'tgl_sewa' => $request->tgl_sewa,
+        //     'tgl_kembali' => $request->tgl_kembali,
+        //     // 'faktur' => $request->faktur,
+        //     'status' => $status,
+        // ]);
+        // } else {
+        //     DB::table('rentmobils')->insert([
+        //         'hari' => $hari,
+        //         'kode' => $request->kode,
+        //         'nama' => $request->nama,
+        //         'ktp' => $validatedData['ktp'],
+        //         'nik' =>$request->nik,
+        //         'no_telp' => $request->no_telp,
+        //         'tgl_sewa' => $request->tgl_sewa,
+        //         'tgl_kembali' => $request->tgl_kembali,
+        //         'faktur' => $request->faktur,
+        //         'status' => $status,
+
+        //     ]);
+        // }
+        // return redirect('nextmobil/'. $faktur. $dd. '/faktur');
+        // dd($faktur);
         // Ui::create($validatedData, $hari);
-        return redirect('nextmobil/'. $faktur.  '/faktur');
         // return view('ui.mobil.uinext');
     }
     public function cetak(Request $request, $faktur, $id)
     {
-        $Data = $request->validate([
-            'rk' => 'required',
-            'faktur' => 'required',
-            ]);
-        Metodepayment::create($Data);
+        $id_update = $request->id;
+        $no_faktur = $request->faktur;
 
-        $Datainv = $request->validate([
-            'invoice' => 'required',
-            'faktur' => 'required',
-            ]);
-        Invoice::create($Datainv);
+        $doubleFkDataInv =  DB::table('invoices')->select('faktur')->where('faktur', $no_faktur)->limit(1)->orderByDesc('id')->first();
+        $doubleFkDataPay =  DB::table('metodepayments')->select('faktur')->where('faktur', $no_faktur)->limit(1)->orderByDesc('id')->first();
+
+
+        if (empty($doubleFkDataInv)) {
+            $Datainv = $request->validate([
+                'invoice' => 'required',
+                'faktur' => 'required',
+                ]);
+            Invoice::create($Datainv);
+        } else {
+            $Datainv = $request->validate([
+                'invoice' => 'required',
+                'faktur' => 'required',
+                ]);
+            Invoice::where('faktur', $faktur)->update($Datainv);
+        }
+
+        if (empty($doubleFkDataInv)) {
+            $Data = $request->validate([
+                'rk' => 'required',
+                'faktur' => 'required',
+                ]);
+            Metodepayment::create($Data);
+        } else {
+            $Data = $request->validate([
+                'rk' => 'required',
+                'faktur' => 'required',
+                ]);
+            Metodepayment::where('faktur', $faktur)->update($Data);
+        }
+
 
         $kode = $request->kode;
         $Mobil = $request->validate([
@@ -138,7 +311,8 @@ class UiController extends Controller
         Rental::where('kode', $kode)->update($Mobil);
 
         $status = "Dipesan";
-        DB::table('rentmobils')->where('id', $id)
+        // dd($id_update, $id, $faktur);
+        DB::table('rentmobils')->where('id', $id_update)
         ->update([
             'status' => $status,
         ]);
@@ -156,23 +330,11 @@ class UiController extends Controller
             $validatedData['bukti'] = $request->file('bukti')->store('photos');
         }
         // dd($validatedData, $id);
-        Ui::where('id', $id)->update($validatedData);
+        Ui::where('id', $id_update)->update($validatedData);
 
-        // $Data = $request->validate([
-        //     'rk' => 'required',
-        //     'faktur' => 'required',
-        //     ]);
-        // Metodepayment::create($Data);
-
-        // $Datainv = $request->validate([
-        //     'invoice' => 'required',
-        //     'faktur' => 'required',
-        //     ]);
-        // Invoice::create($Datainv);
-
-        // dd($d1, $validatedData);
-        // Ui::create($validatedData, $hari);
-        return redirect('nextbuktimob/'. $faktur . $id.  '/bukti');
+        $dd = "%";
+        // dd($no_faktur, $dd);
+        return redirect('nextbuktimob/'. $no_faktur . $dd.  '/bukti');
         // return view('ui.mobil.uinext');
     }
     public function cetakdua(Request $request, $faktur, $id)

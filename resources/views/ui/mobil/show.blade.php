@@ -177,7 +177,6 @@
                                 <!-- /.card-header -->
                                 <!-- form start -->
                                 <form action="{{ url('next-mobil/uinext') }}" method="post" enctype="multipart/form-data">
-                                    @method('patch')
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-4">
@@ -298,7 +297,8 @@
                                             </div>
 
                                             <div class="card-footer text-right">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary"
+                                                    onclick="javascript: return confirm('Apakah data sudah benar ?')">Submit</button>
                                             </div>
                                         </div>
                                     </div>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Ui;
 use PDF;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 // use Barryvdh\DomPDF\Facade\Pdf;
 

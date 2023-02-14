@@ -27,9 +27,9 @@ route::get('/', [UiController::class, 'index'])->name('index');
 route::get('/ui-mobil', [UiController::class, 'uimobil'])->name('ui-mobil');
 route::get('/ui-mobil/{kode}{id}/detail', [UiController::class, 'show']);
 // route::get('/ui-mobil/{kode}{id}/detail2', [UiController::class, 'show2']);
-// route::post('/next-mobil/uinext', [UiController::class, 'uinext']);
-route::patch('/next-mobil/uinext', [UiController::class, 'uinext']);
-route::get('/nextmobil/{faktur}{id}/faktur', [UiController::class, 'next']);
+route::post('/next-mobil/uinext', [UiController::class, 'uinext']);
+// route::patch('/next-mobil/uinext', [UiController::class, 'uinext']);
+route::get('/nextmobil/{faktur}{dd}/faktur', [UiController::class, 'next']);
 
 route::patch('/two-mob/{faktur}{id}/cetak', [UiController::class, 'cetak']);
 route::get('/nextbuktimob/{faktur}{id}/bukti', [UiController::class, 'bukti']);
