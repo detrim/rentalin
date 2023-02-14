@@ -275,6 +275,7 @@ class UiController extends Controller
         $doubleFkDataPay =  DB::table('metodepayments')->select('faktur')->where('faktur', $no_faktur)->limit(1)->orderByDesc('id')->first();
 
 
+
         if (empty($doubleFkDataInv)) {
             $Datainv = $request->validate([
                 'invoice' => 'required',
@@ -286,10 +287,10 @@ class UiController extends Controller
                 'invoice' => 'required',
                 'faktur' => 'required',
                 ]);
-            Invoice::where('faktur', $faktur)->update($Datainv);
+            Invoice::where('faktur', $no_faktur)->update($Datainv);
         }
 
-        if (empty($doubleFkDataInv)) {
+        if (empty($doubleFkDataPay)) {
             $Data = $request->validate([
                 'rk' => 'required',
                 'faktur' => 'required',
@@ -300,7 +301,8 @@ class UiController extends Controller
                 'rk' => 'required',
                 'faktur' => 'required',
                 ]);
-            Metodepayment::where('faktur', $faktur)->update($Data);
+
+            Metodepayment::where('faktur', $no_faktur)->update($Data);
         }
 
 
@@ -312,7 +314,7 @@ class UiController extends Controller
 
         $status = "Dipesan";
         // dd($id_update, $id, $faktur);
-        DB::table('rentmobils')->where('id', $id_update)
+        DB::table('rentmobils')->where('faktur', $no_faktur)
         ->update([
             'status' => $status,
         ]);
@@ -330,7 +332,8 @@ class UiController extends Controller
             $validatedData['bukti'] = $request->file('bukti')->store('photos');
         }
         // dd($validatedData, $id);
-        Ui::where('id', $id_update)->update($validatedData);
+        // Ui::where('id', $id_update)->update($validatedData);
+        Ui::where('faktur', $no_faktur)->update($validatedData);
 
         $dd = "%";
         // dd($no_faktur, $dd);
