@@ -20,7 +20,7 @@ class TransaksiMobilController extends Controller
      */
     public function index()
     {
-        $tarik = Ui::all()->last();
+        $tarik = Ui::all()->first();
         $role_id = $tarik->role_id;
         if ($role_id == null) {
             $role = '1';
@@ -29,9 +29,15 @@ class TransaksiMobilController extends Controller
             $role = $role_id;
             // dd($role);
         }
-        return view('mobil.transaksi.main', [
-            'transaksimobil' => Ui::where('role_id', $role)->orderBY('id', 'desc')->get(),
-        ]);
+
+        $transaksimobil =Ui::where('role_id', $role)->orderBY('id', 'desc')->get();
+        $dd = "%";
+
+        return view('mobil.transaksi.main', compact('dd', 'transaksimobil'));
+
+        // return view('mobil.transaksi.main', [
+        //     'transaksimobil' => Ui::where('role_id', $role)->orderBY('id', 'desc')->get(),
+        // ]);
     }
 
     /**
@@ -86,9 +92,12 @@ class TransaksiMobilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($faktur, $id)
     {
-        //
+        $transaksi =Ui::where('faktur', $faktur)->get();
+        $dd = "%";
+        // dd($detailTransaksi);
+        return view('mobil.transaksi.show', compact('dd', 'transaksi'));
     }
 
     /**

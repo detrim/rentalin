@@ -102,6 +102,7 @@
                                     </thead>
                                     <tbody>
 
+
                                         @foreach ($transaksimobil as $tm)
                                             <tr class="text-center">
                                                 <td>{{ $loop->iteration }}</td>
@@ -115,7 +116,7 @@
                                                 <td>{{ $tm->status }}</td>
                                                 <td>
 
-                                                    <a href="{{ url('transaksi-mobil/' . $tm->faktur . '/detail') }}"
+                                                    <a href="{{ url('transaksi-mobil/' . $tm->faktur . $dd . '/detail') }}"
                                                         class="btn btn-primary btn-sm">
                                                         <i class="far fa-id-badge"></i></a>
 
