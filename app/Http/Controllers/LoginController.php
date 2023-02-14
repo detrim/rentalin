@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Login;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -11,18 +14,33 @@ class LoginController extends Controller
     {
         return view('login');
     }
-    public function proseslogin(Request $request)
+    public function proseslogin(Request $request): RedirectResponse
     {
-        $master = Login::where('username', $request->username)->first();
-        if (!$master || !\Hash::check($request->password, $master->password)) {
-            return back()->with('error', 'Login Failed!');
+        $credentials = $request->validate([
+            'name' => 'required',
+            'password' => 'required'
+            ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('beranda');
         }
-        $request->session()->regenerate();
-        return redirect()->intended('/beranda');
+        return back()->with('error', 'Login Failed!');
+        // $master = User::where('name', $request->name)->first();
+        // if (!$master || !\Hash::check($request->password, $master->password)) {
+        //     return back()->with('error', 'Login Failed!');
+        // }
+        // $request->session()->regenerate();
+        // return redirect()->intended('/beranda');
     }
-    public function logout()
+    public function logout(Request $request)
     {
-        // Login::logout();
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
         return view('login');
     }
     /**

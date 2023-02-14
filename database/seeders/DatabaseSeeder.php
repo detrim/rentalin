@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\lOGIN;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,14 +26,15 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         User::create([
-            'name' => 'Admin',
+            'name' => 'SuperAdmin',
             'password' => Hash::make('pass123'),
-            'email' => 'admin@mail.co.id',
+            'email' => 'superadmin@mail.co.id',
+            'remember_token' => Str::random(40),
         ]);
-        Login::create([
-            'username' => 'Admin',
-            'password' => Hash::make('pass123'),
-            'role_id' => '2',
-        ]);
+        // Login::create([
+        //     'username' => 'Admin',
+        //     'password' => Hash::make('pass123'),
+        //     'role_id' => '2',
+        // ]);
     }
 }

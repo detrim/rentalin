@@ -38,28 +38,27 @@ route::get('/nextbuktimob/{faktur}{id}/bukti_print', [UiController::class, 'bukt
 
 
 
+Route::group(['middleware' => ['auth']], function () {
+    route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/beranda', function () {
+        return view('beranda');
+    });
+    route::get('/ren-mobil', [RentalController::class, 'index'])->name('ren-mobil');
+    route::get('/ren-mobil/create', [RentalController::class, 'create'])->name('create');
+    route::post('/store-mobil', [RentalController::class, 'store'])->name('store-mobil');
+    route::get('/ren-mobil/{kode}{id}/detail', [RentalController::class, 'show']);
+    route::get('/ren-mobil/{kode}{id}/edit', [RentalController::class, 'edit']);
+    route::patch('/ren-mobil/{kode}{id}/editphotos', [RentalController::class, 'editphotos']);
+    route::patch('/ren-mobil/{kode}{id}/editmobil', [RentalController::class, 'editmobil']);
 
+    route::get('/transaksi-mobil', [TransaksiMobilController::class, 'index'])->name('transaksi-mobil');
+    route::get('/pdf-transaksi', [TransaksiMobilController::class, 'pdfexport'])->name('pdfexport');
+    route::get('/PDF/create', [TransaksiMobilController::class, 'pdf'])->name('pdf');
 
-route::get('/login', [LoginController::class, 'login']);
-route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-route::post('/proses-login', [LoginController::class, 'proseslogin'])->name('proseslogin');
-Route::get('/beranda', function () {
-    return view('beranda');
+    route::get('/metode-payment', [RekeningController::class, 'index'])->name('metode-payment');
+    route::get('/payment/create', [RekeningController::class, 'create']);
+    route::post('/metode-payment-post', [RekeningController::class, 'store'])->name('metode-payment-post');
 });
-route::get('/ren-mobil', [RentalController::class, 'index'])->name('ren-mobil');
-route::get('/ren-mobil/create', [RentalController::class, 'create'])->name('create');
-route::post('/store-mobil', [RentalController::class, 'store'])->name('store-mobil');
-route::get('/ren-mobil/{kode}{id}/detail', [RentalController::class, 'show']);
-route::get('/ren-mobil/{kode}{id}/edit', [RentalController::class, 'edit']);
-route::patch('/ren-mobil/{kode}{id}/editphotos', [RentalController::class, 'editphotos']);
-route::patch('/ren-mobil/{kode}{id}/editmobil', [RentalController::class, 'editmobil']);
 
-
-
-route::get('/transaksi-mobil', [TransaksiMobilController::class, 'index'])->name('transaksi-mobil');
-route::get('/pdf-transaksi', [TransaksiMobilController::class, 'pdfexport'])->name('pdfexport');
-route::get('/PDF/create', [TransaksiMobilController::class, 'pdf'])->name('pdf');
-
-route::get('/metode-payment', [RekeningController::class, 'index'])->name('metode-payment');
-route::get('/payment/create', [RekeningController::class, 'create']);
-route::post('/metode-payment-post', [RekeningController::class, 'store'])->name('metode-payment-post');
+route::get('/login', [LoginController::class, 'login'])->name('login');
+route::post('/proses-login', [LoginController::class, 'proseslogin'])->name('proseslogin');
