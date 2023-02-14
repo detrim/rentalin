@@ -44,7 +44,8 @@
                     <!-- /.col -->
                 </div>
             </form>
-
+            <span>Username : SuperAdmin</span>
+            <span>Password : pass123</span>
         </div>
         <!-- /.card-body -->
     </div>
