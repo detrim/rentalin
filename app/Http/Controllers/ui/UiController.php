@@ -411,7 +411,7 @@ class UiController extends Controller
         // dd($faktur);
         } else {
             $tarik = Ui::all()->last();
-            $nourut = (int)substr(-2, $tarik->faktur)+1;
+            $nourut = (int)substr($tarik->faktur, -3)+1;
             $faktur = 'FK' . $nourut .'V'. $view;
             // dd($faktur);
         }
