@@ -411,9 +411,9 @@ class UiController extends Controller
         // dd($faktur);
         } else {
             $tarik = Ui::all()->last();
-            $nourut = (int)substr($tarik->faktur, -3)+1;
+            $nourut = (int)substr($tarik->faktur, +2)+1;
             $faktur = 'FK' . $nourut .'V'. $view;
-            // dd($faktur);
+            // dd($tarik->faktur, $nourut);
         }
 
         return view('ui.mobil.show', compact('mobil', 'uimobil', 'faktur'));

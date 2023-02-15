@@ -52,8 +52,6 @@
                                                 <select class="form-control select2" style="width: 100%;" name="status">
                                                     <option value="">Semua
                                                     </option>
-                                                    {{-- <option value="Menunggu">Menunggu
-                                                    </option> --}}
                                                     <option value="Dipesan">Dipesan
                                                     </option>
                                                     <option value="Disewa">Disewa

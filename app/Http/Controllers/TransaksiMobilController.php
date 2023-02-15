@@ -20,14 +20,14 @@ class TransaksiMobilController extends Controller
      */
     public function index()
     {
-        $role_id =  DB::table('rentmobils')->select('role_id')->first();
+        $role_id =  DB::table('rentmobils')->select('role_id')->get();
         // dd($role_id);
-
+        $satu = "1";
         if ($role_id == null) {
             $role = null;
         // dd($role);
         } else {
-            $role = $role_id;
+            $role = $satu;
             // dd($role);
         }
 
@@ -37,7 +37,7 @@ class TransaksiMobilController extends Controller
             $transaksimobil =UI::all();
             return view('mobil.transaksi.main', compact('dd', 'transaksimobil'));
         } else {
-            $transaksimobil =Ui::where('role_id', $role)->orderBY('id', 'desc')->first();
+            $transaksimobil =Ui::where('role_id', $role)->orderBY('id', 'desc')->get();
             return view('mobil.transaksi.main', compact('dd', 'transaksimobil'));
         }
     }
@@ -63,19 +63,33 @@ class TransaksiMobilController extends Controller
         $tgl1 = $request->tgl_1;
         $tgl2 = $request->tgl_2;
         $status = $request->status;
-        // $tarik = Ui::where('role_id', 1)->get();
-        // $pendapatan = array_sum($tarik->total_dp);
-        $pendapatan = DB::table('rentmobils')->select('rentmobils.total_dp')->sum('rentmobils.total_dp');
-        // dd($tarik);
-        // dd($pendapatan);
 
+        $pendapatan = DB::table('rentmobils')->select('rentmobils.total_dp')->sum('rentmobils.total_dp');
         $data = Ui::whereBetween('tgl_dp', [$tgl1, $tgl2])->where('status', 'like', "%" . $status . "%")->get();
-        // view()->share('data', $data);
-        // dd($data);
-        // dd($tgl1, $tgl2);
-        // return view('mobil.transaksi.pdf', compact('tgl1', 'tgl2', 'pendapatan'))->with('data', $data);
         $pdf=PDF::loadview('mobil.transaksi.pdf', compact('tgl1', 'tgl2', 'data', 'pendapatan'));
         return $pdf->download('laporan-mobil.pdf');
+
+        // if ($status == null) {
+        //     $pendapatan = DB::table('rentmobils')->select('rentmobils.total_dp')->sum('rentmobils.total_dp');
+        //     $data = Ui::whereBetween('tgl_dp', [$tgl1, $tgl2])->where('status', 'not like', "%" . $status . "%")->get();
+        //     $pdf=PDF::loadview('mobil.transaksi.pdf', compact('tgl1', 'tgl2', 'data', 'pendapatan'));
+        //     return $pdf->download('laporan-mobil.pdf');
+        // } else {
+        // }
+
+        // // $tarik = Ui::where('role_id', 1)->get();
+        // // $pendapatan = array_sum($tarik->total_dp);
+        // $pendapatan = DB::table('rentmobils')->select('rentmobils.total_dp')->sum('rentmobils.total_dp');
+        // // dd($tarik);
+        // // dd($pendapatan);
+
+        // $data = Ui::whereBetween('tgl_dp', [$tgl1, $tgl2])->where('status', 'like', "%" . $status . "%")->get();
+        // // view()->share('data', $data);
+        // // dd($data);
+        // // dd($tgl1, $tgl2);
+        // // return view('mobil.transaksi.pdf', compact('tgl1', 'tgl2', 'pendapatan'))->with('data', $data);
+        // $pdf=PDF::loadview('mobil.transaksi.pdf', compact('tgl1', 'tgl2', 'data', 'pendapatan'));
+        // return $pdf->download('laporan-mobil.pdf');
     }
     public function pdf(Request $request)
     {
