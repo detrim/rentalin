@@ -67,6 +67,7 @@
                                                     @php
                                                         $tagihan = $transaksi->total_pembayaran - $transaksi->total_dp;
                                                         $total = $transaksi->total_pembayaran;
+                                                        $kode = $transaksi->kode;
                                                         
                                                         $dd = '%';
                                                     @endphp
@@ -339,6 +340,7 @@
                                         @method('patch')
                                         @csrf
                                         <input type="hidden" name="no_faktur" value="{{ $faktur }}">
+                                        <input type="hidden" name="no_kode" value="{{ $kode }}">
 
                                         <label>Status</label>
                                         <div class="input-group">

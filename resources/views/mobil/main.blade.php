@@ -60,6 +60,7 @@
                                             <th>Nopol</th>
                                             <th>Harga Sewa</th>
                                             <th>Status</th>
+                                            <th>View</th>
                                             <th width="60">Aksi</th>
                                         </tr>
                                     </thead>
@@ -74,6 +75,7 @@
                                                 <td>{{ $rm->nopol }}</td>
                                                 <td>Rp. {{ number_format($rm->harga_sewa, 0, ',', '.') }},-/Hari</td>
                                                 <td>{{ $rm->status }}</td>
+                                                <td>{{ $rm->view }}</td>
                                                 <td>
 
                                                     <a href="{{ url('ren-mobil/' . $rm->kode . '/detail') }}"

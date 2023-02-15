@@ -154,12 +154,17 @@ class TransaksiMobilController extends Controller
     public function dikembalikan(Request $request, $faktur, $id)
     {
         $cek_faktur = $request->no_faktur;
-        // $cek_total_dp = $request->total_dp;
+        $cek_kode = $request->no_kode;
+        $cek_status = "Tersedia";
         // dd($cek_faktur, $cek_total_dp);
         $dd = "%";
         $validatedData = $request->validate([
             'status' => 'required',
             'total_dp' => 'required',
+            ]);
+
+        DB::table('mobils')->where('kode', $cek_kode)->update([
+            'status' => $cek_status,
             ]);
 
         Ui::where('faktur', $cek_faktur)->update($validatedData);
