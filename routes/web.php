@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\TransaksiMobilController;
+use App\Http\Controllers\BerandaAdminController;
 use App\Http\Controllers\RekeningController;
 use App\Http\Controllers\ui\UiController;
 use Illuminate\Support\Facades\Route;
@@ -38,11 +39,13 @@ route::get('/nextbuktimob/{faktur}{id}/bukti_print', [UiController::class, 'bukt
 
 
 
+Route::get('/beranda', function () {
+    return view('beranda');
+});
 Route::group(['middleware' => ['auth']], function () {
+    route::get('/beranda', [BerandaAdminController::class, 'index']);
+
     route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-    Route::get('/beranda', function () {
-        return view('beranda');
-    });
     route::get('/ren-mobil', [RentalController::class, 'index'])->name('ren-mobil');
     route::get('/ren-mobil/create', [RentalController::class, 'create'])->name('create');
     route::post('/store-mobil', [RentalController::class, 'store'])->name('store-mobil');
