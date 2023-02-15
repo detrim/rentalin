@@ -58,6 +58,7 @@
                                             @else
                                                 @php
                                                     $view = $rm->view;
+                                                    $dd = '%';
                                                 @endphp
                                             @endif
                                             <tr class="text-center">
@@ -82,7 +83,7 @@
                                                             </button>
                                                         </form>
                                                     @endif --}}
-                                                    <a href="{{ url('ui-mobil/' . $rm->kode . '/detail') }}"
+                                                    <a href="{{ url('ui-mobil/' . $rm->kode . $dd . '/detail') }}"
                                                         class="btn btn-primary btn-sm">
                                                         <i class="far fa-id-badge"></i></a>
 

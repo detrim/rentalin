@@ -20,24 +20,26 @@ class TransaksiMobilController extends Controller
      */
     public function index()
     {
-        $tarik = Ui::all()->first();
-        $role_id = $tarik->role_id;
+        $role_id =  DB::table('rentmobils')->select('role_id')->first();
+        // dd($role_id);
+
         if ($role_id == null) {
-            $role = '1';
+            $role = null;
         // dd($role);
         } else {
             $role = $role_id;
             // dd($role);
         }
 
-        $transaksimobil =Ui::where('role_id', $role)->orderBY('id', 'desc')->get();
         $dd = "%";
-
-        return view('mobil.transaksi.main', compact('dd', 'transaksimobil'));
-
-        // return view('mobil.transaksi.main', [
-        //     'transaksimobil' => Ui::where('role_id', $role)->orderBY('id', 'desc')->get(),
-        // ]);
+        $transaksimobil =Ui::where('role_id', $role)->orderBY('id', 'desc')->first();
+        if (empty($transaksimobil)) {
+            $transaksimobil =UI::all();
+            return view('mobil.transaksi.main', compact('dd', 'transaksimobil'));
+        } else {
+            $transaksimobil =Ui::where('role_id', $role)->orderBY('id', 'desc')->first();
+            return view('mobil.transaksi.main', compact('dd', 'transaksimobil'));
+        }
     }
 
     /**

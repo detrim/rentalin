@@ -201,7 +201,7 @@
                                             </div>
 
 
-                                            <input type="text" name="kode" value="{{ $mobil->kode }}"
+                                            <input type="hidden" name="kode" value="{{ $mobil->kode }}"
                                                 class="form-control">
 
                                             <div class="row">

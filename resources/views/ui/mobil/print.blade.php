@@ -31,7 +31,7 @@
                 $total = $us->total_pembayaran;
                 $dp = $us->total_dp;
                 $tagihan = $us->total_pembayaran - $us->total_dp;
-
+                
                 $nama = $us->nama;
                 $nik = $us->nik;
                 $no_telp = $us->no_telp;
@@ -45,7 +45,7 @@
                 $ktp = $us->ktp;
                 $rk = $us->rk;
                 $no = 1;
-
+                
             @endphp
 
             @if ($dp == $total)
@@ -60,7 +60,7 @@
         @endforeach
         @foreach ($rek as $rekening)
             @php
-
+                
                 $nama_rekening = $rekening->nama;
             @endphp
         @endforeach
@@ -205,7 +205,7 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-
+        <br>
         <div class="row">
             <!-- accepted payments column -->
             <div class="col-7">

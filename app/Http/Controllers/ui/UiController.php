@@ -87,7 +87,7 @@ class UiController extends Controller
         //     $fk = $value->faktur;
         // }
 
-        // dd($doubleData, $faktur);
+        // dd($doubleData, $kode_view);
         if (empty($doubleData)) {
             $validatedData = $request->validate([
                 'kode' => 'required',
@@ -384,17 +384,35 @@ class UiController extends Controller
 
         // Rental::where('id', $id)->update($validatedData);
 
-        $mobil = Rental::find($id);
+        // $mobil = Rental::find($id);
+
+
+        $mobil = Rental::where('kode', $kode)->first();
+        $viewmobil = DB::table('mobils')->select('view')->where('kode', $kode)->first();
+        if ($viewmobil->view == null) {
+            $nourut = 1;
+            $view = $nourut;
+            DB::table('mobils')->where('kode', $kode)->update([
+                'view' => $view,
+            ]);
+        } else {
+            $nourut = $viewmobil->view + 1;
+            $view = $nourut;
+            DB::table('mobils')->where('kode', $kode)->update([
+            'view' => $view,
+        ]);
+        }
+
         $uimobil = Ui::count();
         // dd($uimobil);
         if ($uimobil == 0) {
             $nourut = 101;
-            $faktur = 'FK' . $nourut;
+            $faktur = 'FK' . $nourut .'V'. $view;
         // dd($faktur);
         } else {
             $tarik = Ui::all()->last();
-            $nourut = (int)substr($tarik->faktur, -3)+1;
-            $faktur = 'FK' . $nourut;
+            $nourut = (int)substr(-2, $tarik->faktur)+1;
+            $faktur = 'FK' . $nourut .'V'. $view;
             // dd($faktur);
         }
 

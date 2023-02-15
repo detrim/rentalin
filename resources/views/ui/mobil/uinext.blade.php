@@ -300,7 +300,7 @@
                                                             </option>
                                                             @foreach ($rkk as $rk)
                                                                 <option value="{{ $rk->rk }}">
-                                                                    {{ $rk->nama_rk }}
+                                                                    {{ $rk->nama_rk }} - {{ $rk->nama }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
