@@ -55,6 +55,8 @@ Route::group(['middleware' => ['auth']], function () {
     route::get('/pdf-transaksi', [TransaksiMobilController::class, 'pdfexport'])->name('pdfexport');
     route::get('/PDF/create', [TransaksiMobilController::class, 'pdf'])->name('pdf');
     route::get('/transaksi-mobil/{faktur}{id}/detail', [TransaksiMobilController::class, 'show']);
+    route::patch('/update-transaksi-mobil/{faktur}{id}/sewa', [TransaksiMobilController::class, 'sewa']);
+    route::patch('/update-transaksi-mobil/{faktur}{id}/dikembalikan', [TransaksiMobilController::class, 'dikembalikan']);
 
     route::get('/metode-payment', [RekeningController::class, 'index'])->name('metode-payment');
     route::get('/payment/create', [RekeningController::class, 'create']);

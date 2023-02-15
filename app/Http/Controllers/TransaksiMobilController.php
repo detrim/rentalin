@@ -112,7 +112,7 @@ class TransaksiMobilController extends Controller
     {
         // $transaksi =Ui::where('faktur', $faktur)->get();
         $dd = "%";
-        $transaksi = DB::table('rentmobils')->join('rekenings', 'rentmobils.rk', '=', 'rekenings.rk')->select('rentmobils.*', 'rekenings.rk', 'rekenings.nama_rk', 'rekenings.nama', 'rekenings.icon')->where('rentmobils.faktur', $faktur)->limit(1)->orderByDesc('id')->get();
+        $transaksi = DB::table('rentmobils')->join('rekenings', 'rentmobils.rk', '=', 'rekenings.rk')->join('invoices', 'rentmobils.faktur', '=', 'invoices.faktur')->select('rentmobils.*', 'rekenings.rk', 'rekenings.nama_rk', 'rekenings.nama', 'rekenings.icon', 'invoices.invoice')->where('rentmobils.faktur', $faktur)->limit(1)->orderByDesc('id')->get();
 
         // dd($detailTransaksi);
         return view('mobil.transaksi.show', compact('dd', 'transaksi'));
@@ -136,9 +136,35 @@ class TransaksiMobilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function sewa(Request $request, $faktur, $id)
     {
-        //
+        $cek_faktur = $request->no_faktur;
+        // $cek_total_dp = $request->total_dp;
+        // dd($cek_faktur, $cek_total_dp);
+        $dd = "%";
+        $validatedData = $request->validate([
+            'status' => 'required',
+            'total_dp' => 'required',
+            ]);
+
+        Ui::where('faktur', $cek_faktur)->update($validatedData);
+
+        return redirect('transaksi-mobil/'.$faktur. $dd.'/detail');
+    }
+    public function dikembalikan(Request $request, $faktur, $id)
+    {
+        $cek_faktur = $request->no_faktur;
+        // $cek_total_dp = $request->total_dp;
+        // dd($cek_faktur, $cek_total_dp);
+        $dd = "%";
+        $validatedData = $request->validate([
+            'status' => 'required',
+            'total_dp' => 'required',
+            ]);
+
+        Ui::where('faktur', $cek_faktur)->update($validatedData);
+
+        return redirect('transaksi-mobil/'.$faktur. $dd.'/detail');
     }
 
     /**

@@ -34,9 +34,16 @@
                                             $faktur = $t->faktur;
                                         @endphp
                                     @endforeach
-                                    <a href="{{ url('ren-mobil/' . $faktur . '/edit') }} " class="btn btn-info btn-sm">
-                                        <i class="fas fa-edit"></i> Update
-                                    </a>
+
+                                    <a type="button" class="btn btn-danger btn-sm" data-target="inv" href="">
+                                        <i class="fas fa-print"></i> Cetak Invoice</a>
+
+                                    <a type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                        data-target="#m-d{{ $faktur }}">
+                                        <i class="fas fa-edit"></i> Dikembalikan</a>
+                                    <a type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                        data-target="#m-m{{ $faktur }}">
+                                        <i class="fas fa-edit"></i> Disewa</a>
                                     <a href=" {{ url('transaksi-mobil') }} " class="btn btn-success btn-sm">
                                         <i class="fa fa-undo"></i> Back
                                     </a>
@@ -59,6 +66,9 @@
                                                 @foreach ($transaksi as $transaksi)
                                                     @php
                                                         $tagihan = $transaksi->total_pembayaran - $transaksi->total_dp;
+                                                        $total = $transaksi->total_pembayaran;
+                                                        
+                                                        $dd = '%';
                                                     @endphp
                                                     <!-- /.card-header -->
                                                     <!-- form start -->
@@ -83,6 +93,8 @@
                                                                         class="img-thumbnail img-preview">
 
                                                                 </div>
+                                                                <p style="margin-top: -10px"> <b>INV
+                                                                        : </b>{{ $transaksi->invoice }}</p>
 
                                                             </div>
 
@@ -250,6 +262,122 @@
                 </div>
             </div>
         </section>
+        {{-- disewa --}}
+        <div class="modal fade" id="m-m{{ $faktur }}">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Update Disewa{{ $faktur }}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="row justify-content-center">
+                                <div class="col-md-11">
+                                    <form action="{{ url('update-transaksi-mobil/' . $faktur . $dd . '/sewa') }}"
+                                        method="post" enctype="multipart/form-data">
+                                        @method('patch')
+                                        @csrf
+                                        <input type="hidden" name="no_faktur" value="{{ $faktur }}">
+
+                                        <label>Status</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <input type="checkbox" name="status" value="Disewa" required>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control" value="Disewa" disabled>
+                                        </div>
+                                        <br>
+                                        <label>Total Tagihan</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <input type="checkbox" name="total_dp" value="{{ $total }}"
+                                                        required>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control"
+                                                value="Rp. {{ number_format($tagihan, 0, ',', '.') }}" disabled>
+                                        </div>
+                                        <br>
+                                        <div class="card-footer text-right">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+        {{-- dikembalikan --}}
+        <div class="modal fade" id="m-d{{ $faktur }}">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Update Dikembalikan {{ $faktur }}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="row justify-content-center">
+                                <div class="col-md-11">
+                                    <form action="{{ url('update-transaksi-mobil/' . $faktur . $dd . '/dikembalikan') }}"
+                                        method="post" enctype="multipart/form-data">
+                                        @method('patch')
+                                        @csrf
+                                        <input type="hidden" name="no_faktur" value="{{ $faktur }}">
+
+                                        <label>Status</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <input type="checkbox" name="status" value="Dikembalikan" required>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control" value="Dikembalikan" disabled>
+                                        </div>
+                                        <br>
+                                        <label>Total Tagihan</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <input type="checkbox" name="total_dp" value="{{ $total }}"
+                                                        required>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control"
+                                                value="Rp. {{ number_format($tagihan, 0, ',', '.') }}" disabled>
+                                        </div>
+                                        <br>
+                                        <div class="card-footer text-right">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
     </div>
     <!-- /.content -->
 @endsection
