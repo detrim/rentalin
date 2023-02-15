@@ -110,8 +110,10 @@ class TransaksiMobilController extends Controller
      */
     public function show($faktur, $id)
     {
-        $transaksi =Ui::where('faktur', $faktur)->get();
+        // $transaksi =Ui::where('faktur', $faktur)->get();
         $dd = "%";
+        $transaksi = DB::table('rentmobils')->join('rekenings', 'rentmobils.rk', '=', 'rekenings.rk')->select('rentmobils.*', 'rekenings.rk', 'rekenings.nama_rk', 'rekenings.nama', 'rekenings.icon')->where('rentmobils.faktur', $faktur)->limit(1)->orderByDesc('id')->get();
+
         // dd($detailTransaksi);
         return view('mobil.transaksi.show', compact('dd', 'transaksi'));
     }

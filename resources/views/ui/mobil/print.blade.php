@@ -21,6 +21,17 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/css/adminlte.min.css') }}">
 </head>
+<style>
+    .textfoot {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        /* background-color: red; */
+        /* color: white; */
+        /* text-align: left; */
+    }
+</style>
 
 <body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
     <div class="invoice p-3 mb-3">
@@ -215,10 +226,6 @@
                             <label for=""></label>
                         </div>
                         <div class="col-md-7">
-
-                            {{-- <div class="mt-5">
-
-                        </div> --}}
                             <p><label for=""></label></p>
                             <p>Rentalin</p>
                             <br>
@@ -239,8 +246,8 @@
             <div class="col-5">
                 <p style="margin-left: -45px">Jakartat, {{ date('Y-m-d') }}</p>
                 <p>Penyewa</p>
-                <br><span style="margin-left: -3px">materai</span>
-                <br><span style="margin-left: -7px">Rp.10.000</span>
+                <br><span style="margin-left: -3px"></span>
+                <br><span style="margin-left: -7px"></span>
                 <br>
                 <br>
                 <br>
@@ -253,6 +260,11 @@
 
         <!-- this row will not appear when printing -->
     </div>
+
+    <footer class="textfoot">
+        <hr>
+        <p>(*) Penyewa</p>
+    </footer>
 
     <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->

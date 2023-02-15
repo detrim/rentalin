@@ -29,9 +29,14 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="text-right">
-                                    {{-- <a href="{{ url('ren-mobil/' . $mobil->kode . '/edit') }} " class="btn btn-info btn-sm">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </a> --}}
+                                    @foreach ($transaksi as $t)
+                                        @php
+                                            $faktur = $t->faktur;
+                                        @endphp
+                                    @endforeach
+                                    <a href="{{ url('ren-mobil/' . $faktur . '/edit') }} " class="btn btn-info btn-sm">
+                                        <i class="fas fa-edit"></i> Update
+                                    </a>
                                     <a href=" {{ url('transaksi-mobil') }} " class="btn btn-success btn-sm">
                                         <i class="fa fa-undo"></i> Back
                                     </a>
@@ -52,6 +57,9 @@
                                             <div class="col-md-12">
                                                 <!-- general form elements -->
                                                 @foreach ($transaksi as $transaksi)
+                                                    @php
+                                                        $tagihan = $transaksi->total_pembayaran - $transaksi->total_dp;
+                                                    @endphp
                                                     <!-- /.card-header -->
                                                     <!-- form start -->
                                                     <form>
@@ -67,6 +75,15 @@
                                                                 </div>
                                                                 <p style="margin-top: -10px"> <b>NIK
                                                                         : </b>{{ $transaksi->nik }}</p>
+
+                                                                <label for="">Bukti Uang Muka</label>
+                                                                <div class="form-group">
+
+                                                                    <img src="{{ asset('storage/' . $transaksi->bukti) }}"
+                                                                        class="img-thumbnail img-preview">
+
+                                                                </div>
+
                                                             </div>
 
                                                             <div class="col-md-8">
@@ -128,6 +145,89 @@
                                                                     </div>
                                                                 </div>
 
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Total Uang Muka</label>
+                                                                            <p>Rp.
+                                                                                {{ number_format($transaksi->total_dp, 0, ',', '.') }}
+                                                                            </p>
+                                                                            <hr style="margin-top: -15px">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Total Tagihan</label>
+                                                                            <p>Rp.
+                                                                                {{ number_format($tagihan, 0, ',', '.') }}
+                                                                            </p>
+                                                                            <hr style="margin-top: -15px">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Total Pembayaran</label>
+                                                                            <p>Rp.
+                                                                                {{ number_format($transaksi->total_pembayaran, 0, ',', '.') }}
+                                                                            </p>
+                                                                            <hr style="margin-top: -15px">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Status</label>
+                                                                            <p>{{ $transaksi->status }}
+                                                                            </p>
+                                                                            <hr style="margin-top: -15px">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Transfer ke Rekening</label>
+                                                                            <p>{{ $transaksi->rk }}
+                                                                            </p>
+                                                                            <hr style="margin-top: -15px">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Nama Bank</label>
+                                                                            <p>{{ $transaksi->nama_rk }}
+                                                                            </p>
+                                                                            <hr style="margin-top: -15px">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Nama Rekening</label>
+                                                                            <p>{{ $transaksi->nama }}
+                                                                            </p>
+                                                                            <hr style="margin-top: -15px">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Tanggal Uang Muka</label>
+                                                                            <p>{{ date('d-m-Y H:i', strtotime($transaksi->tgl_dp)) }}
+                                                                            </p>
+                                                                            <hr style="margin-top: -15px">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
                                                         </div>
 
@@ -145,6 +245,11 @@
                             <!-- /.row -->
                         </div>
                         <!-- /.container-fluid -->
+
+                    </div>
+                </div>
+            </div>
         </section>
-        <!-- /.content -->
-    @endsection
+    </div>
+    <!-- /.content -->
+@endsection

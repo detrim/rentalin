@@ -110,7 +110,7 @@
                                                                     <div class="form-group">
                                                                         <label>Harga Sewa</label>
                                                                         <p>Rp.
-                                                                            {{ number_format($mobil->harga_sewa, 2, ',', '.') }},-/hari
+                                                                            {{ number_format($mobil->harga_sewa, 0, ',', '.') }},-/hari
                                                                         </p>
                                                                         <hr style="margin-top: -15px">
                                                                     </div>
@@ -295,11 +295,17 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @php
+                                                $kosong = $mobil->status;
+                                            @endphp
+                                            @if ($kosong == 'Kosong')
+                                            @else
+                                                <div class="card-footer text-right">
+                                                    <button type="submit" class="btn btn-primary"
+                                                        onclick="javascript: return confirm('Apakah data sudah benar ?')">Submit</button>
+                                                </div>
+                                            @endif
 
-                                            <div class="card-footer text-right">
-                                                <button type="submit" class="btn btn-primary"
-                                                    onclick="javascript: return confirm('Apakah data sudah benar ?')">Submit</button>
-                                            </div>
                                         </div>
                                     </div>
 
