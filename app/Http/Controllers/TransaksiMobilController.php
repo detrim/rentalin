@@ -128,6 +128,17 @@ class TransaksiMobilController extends Controller
     {
         //
     }
+    public function print($faktur, $id)
+    {
+        // dd($faktur);
+        // $rkk = Rekening::orderBY('id', 'desc')->get();
+        $users = DB::table('rentmobils')->join('mobils', 'rentmobils.kode', '=', 'mobils.kode')->join('invoices', 'rentmobils.faktur', '=', 'invoices.faktur')->join('rekenings', 'rentmobils.rk', '=', 'rekenings.rk')->select('rentmobils.*', 'mobils.kode', 'mobils.nama_mobil', 'mobils.warna', 'mobils.nopol', 'mobils.harga_sewa', 'mobils.status', 'mobils.photos', 'invoices.invoice', 'invoices.faktur', 'rekenings.rk', 'rekenings.nama_rk', 'rekenings.icon')->where('rentmobils.faktur', $faktur)->limit(1)->orderByDesc('id')->get();
+        $rek = DB::table('rentmobils')->join('rekenings', 'rentmobils.rk', '=', 'rekenings.rk')->select('rentmobils.id', 'rekenings.rk', 'rekenings.nama_rk', 'rekenings.nama', 'rekenings.icon')->where('rentmobils.faktur', $faktur)->limit(1)->orderByDesc('id')->get();
+        // dd($users, $rek);
+
+        // return view('ui.mobil.uinextbukti', compact('rkk'))->with('users', $users);
+        return view('mobil.transaksi.print', compact('rek'))->with('users', $users);
+    }
 
     /**
      * Update the specified resource in storage.

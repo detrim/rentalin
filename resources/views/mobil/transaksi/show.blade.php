@@ -32,10 +32,13 @@
                                     @foreach ($transaksi as $t)
                                         @php
                                             $faktur = $t->faktur;
+                                            $dd = '%';
                                         @endphp
                                     @endforeach
 
-                                    <a type="button" class="btn btn-danger btn-sm" data-target="inv" href="">
+                                    <a type="button" class="btn btn-danger btn-sm" target="inv"
+                                        href="{{ url('print-transaksi-mobil/' . $faktur . $dd . '/print') }}"
+                                        onclick="javascript: return confirm('Print Invoice ?')">
                                         <i class="fas fa-print"></i> Cetak Invoice</a>
 
                                     <a type="button" class="btn btn-primary btn-sm" data-toggle="modal"
@@ -68,7 +71,7 @@
                                                         $tagihan = $transaksi->total_pembayaran - $transaksi->total_dp;
                                                         $total = $transaksi->total_pembayaran;
                                                         $kode = $transaksi->kode;
-                                                        
+
                                                         $dd = '%';
                                                     @endphp
                                                     <!-- /.card-header -->
