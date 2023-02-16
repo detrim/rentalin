@@ -24,7 +24,11 @@ class UiController extends Controller
      */
     public function index()
     {
-        return view('ui.beranda');
+        $tersedia = "Tersedia";
+        $mobil =  DB::table('mobils')->where('status', $tersedia)->count();
+        // dd($mobil);
+
+        return view('ui.beranda', compact('mobil'));
     }
     public function uimobil()
     {

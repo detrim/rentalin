@@ -74,6 +74,7 @@
                 <img src="{{ asset('assets/img/Admin.png') }}" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
                 <strong class="brand-text">Admin</strong>
+
             </a>
 
             <!-- Sidebar -->
@@ -125,6 +126,9 @@
     <!-- AdminLTE for demo purposes -->
     <!-- Select2 -->
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/chart.js/Chart.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/dashboard.js') }}"></script> --}}
+
     {{-- <script src="{{ asset('assets/js/demo.js') }}"></script> --}}
     <!-- Page specific script -->
     <script>
@@ -152,6 +156,8 @@
             });
         });
     </script>
+    {{-- {{ $pendapatanpertahun }} --}}
+
 
     <script type="text/javascript">
         $(document).ready(function() {

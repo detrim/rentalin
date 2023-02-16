@@ -52,7 +52,9 @@
 
                     <?php $total_ppb = 0; ?>
                     <?php foreach ($pendapatanperbulan as $ppb) {
-                        $total_ppb += $ppb->total_dp;
+                        if (date('m', strtotime($ppb->created_at)) == date('m', strtotime($ppb->created_at))) {
+                            $total_ppb += $ppb->total_dp;
+                        }
                     } ?>
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
@@ -117,5 +119,18 @@
             <!-- /.container-fluid -->
         </section>
         <!-- /.content -->
+
+
+        <!-- Left col -->
+        {{-- <section class=" content ">
+            <div class="container-fluid ">
+                <div class="row">
+
+                    <!-- chart -->
+                </div>
+            </div>
+
+        </section> --}}
+
     </div>
 @endsection

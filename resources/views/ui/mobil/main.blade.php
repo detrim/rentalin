@@ -2,10 +2,10 @@
 @extends('ui.layout.sidebarui')
 
 @section('contentui')
-    <div class="content-wrapper" style="margin-top: -80px">
+    <div class="content-wrapper" style="margin-top: 0px" style="margin-bottom: 200px">
         <!-- Content Header (Page header) -->
         <br><br>
-        <section class="content-header" style="margin-top:60px">
+        <section class="content-header" style="margin-top: -20px">
             <hr>
             <div class="container-fluid">
                 <div class="row mb-2">
