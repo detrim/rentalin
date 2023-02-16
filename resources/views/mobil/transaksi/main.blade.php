@@ -64,7 +64,8 @@
                                         <div class="col-md-2">
 
                                             <button onclick="javascript: return confirm('Print Data Transaksi Mobil')"
-                                                class="btn btn-primary btn-md"><i class="fa fa-print"></i> Print</button>
+                                                class="btn btn-primary btn-md"><i class="fa-solid fa-print"></i>
+                                                Print</button>
                                         </div>
 
                                     </div>

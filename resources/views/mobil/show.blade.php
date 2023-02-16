@@ -33,7 +33,7 @@
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
                                     <a href=" {{ url('ren-mobil') }} " class="btn btn-success btn-sm">
-                                        <i class="fa fa-undo"></i> Back
+                                        <i class="fa-solid fa-rotate-left"></i> Back
                                     </a>
                                 </div>
                             </div>

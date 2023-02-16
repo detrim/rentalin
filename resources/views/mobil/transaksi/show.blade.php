@@ -39,7 +39,7 @@
                                     <a type="button" class="btn btn-danger btn-sm" target="inv"
                                         href="{{ url('print-transaksi-mobil/' . $faktur . $dd . '/print') }}"
                                         onclick="javascript: return confirm('Print Invoice ?')">
-                                        <i class="fas fa-print"></i> Cetak Invoice</a>
+                                        <i class="fa-solid fa-print"></i> Cetak Invoice</a>
 
                                     <a type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                         data-target="#m-d{{ $faktur }}">
@@ -48,7 +48,7 @@
                                         data-target="#m-m{{ $faktur }}">
                                         <i class="fas fa-edit"></i> Disewa</a>
                                     <a href=" {{ url('transaksi-mobil') }} " class="btn btn-success btn-sm">
-                                        <i class="fa fa-undo"></i> Back
+                                        <i class="fa-solid fa-rotate-left"></i> Back
                                     </a>
                                 </div>
                             </div>

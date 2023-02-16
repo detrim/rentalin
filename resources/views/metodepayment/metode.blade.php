@@ -30,7 +30,7 @@
                             <div class="card-header">
                                 <div class="text-right">
                                     <a href=" {{ url('payment/create') }} " class="btn btn-success btn-sm">
-                                        <i class="fa fa-plus"></i> Create
+                                        <i class="fa-solid fa-plus"></i> Create
                                     </a>
 
 

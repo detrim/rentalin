@@ -31,7 +31,7 @@
                                 <div class="text-right">
                                     <a href="{{ url('ren-mobil/' . $mobil->kode . '/detail') }}"
                                         class="btn btn-success btn-sm">
-                                        <i class="fa fa-undo"></i> Back
+                                        <i class="fa-solid fa-rotate-left"></i> Back
                                     </a>
                                 </div>
                             </div>
