@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layout.main')
 @extends('layout.sidebar')
 @section('content')
     <div class="content-wrapper">

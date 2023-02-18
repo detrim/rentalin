@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layout.main')
 @extends('layout.sidebar')
 
 @section('content')
@@ -29,7 +29,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="text-right">
-                                    <a href=" {{ url('ren-mobil') }} " class="btn btn-success btn-sm">
+                                    <a href=" {{ url('metode-payment') }} " class="btn btn-success btn-sm">
                                         <i class="fa fa-undo"></i> Back
                                     </a>
                                 </div>

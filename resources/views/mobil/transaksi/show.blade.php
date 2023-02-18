@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layout.main')
 @extends('layout.sidebar')
 
 @section('content')
@@ -71,7 +71,7 @@
                                                         $tagihan = $transaksi->total_pembayaran - $transaksi->total_dp;
                                                         $total = $transaksi->total_pembayaran;
                                                         $kode = $transaksi->kode;
-
+                                                        
                                                         $dd = '%';
                                                     @endphp
                                                     <!-- /.card-header -->
