@@ -140,12 +140,7 @@
             <a href="" class="brand-link">
                 <img src="{{ asset('assets/img/Admin.png') }}" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
-                <strong class="brand-text">Admin {{ $p_j }}, {{ $p_f }}, {{ $p_ma }},
-                    {{ $p_a }},
-                    {{ $p_me }}, {{ $p_jun }}, {{ $p_jul }},
-                    {{ $p_agu }},
-                    {{ $p_s }}, {{ $p_o }}, {{ $p_n }},
-                    {{ $p_d }}</strong>
+                <strong class="brand-text">Admin </strong>
 
             </a>
 
