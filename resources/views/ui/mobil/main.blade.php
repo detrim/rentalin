@@ -50,10 +50,12 @@
                                     </thead>
                                     <tbody>
 
+
                                         @foreach ($renmobil as $rm)
                                             @if ($rm->view == null)
                                                 @php
-                                                    $view = '-/-';
+                                                    $view = '0';
+                                                    $dd = '%';
                                                 @endphp
                                             @else
                                                 @php
