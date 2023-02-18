@@ -122,15 +122,64 @@
 
 
         <!-- Left col -->
-        {{-- <section class=" content ">
+        <section class=" content ">
             <div class="container-fluid ">
                 <div class="row">
+                    <div class="col-lg-6">
 
-                    <!-- chart -->
+                        <!-- chart -->
+                        <!-- BAR CHART -->
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">Pendapatan</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart">
+                                    <canvas id="myChart"
+                                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <div class="col-lg-6">
+
+                        <!-- chart -->
+                        <!-- BAR CHART -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Penyewa</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart">
+                                    <canvas id="myChartdua"
+                                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+
                 </div>
             </div>
 
-        </section> --}}
+        </section>
 
     </div>
 @endsection

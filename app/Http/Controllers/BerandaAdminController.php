@@ -18,6 +18,20 @@ class BerandaAdminController extends Controller
     {
         $date_pertahun = date('Y');
         $date_perbulan = date('m');
+        // dd($date_perbulan);
+
+        $januari = DB::table('rentmobils')->select('rentmobils.*')->whereMonth('created_at', "01")->get();
+        $februari = DB::table('rentmobils')->select('rentmobils.*')->whereMonth('created_at', "02")->get();
+        $maret = DB::table('rentmobils')->select('rentmobils.*')->whereMonth('created_at', "03")->get();
+        $april = DB::table('rentmobils')->select('rentmobils.*')->whereMonth('created_at', "04")->get();
+        $mei = DB::table('rentmobils')->select('rentmobils.*')->whereMonth('created_at', "05")->get();
+        $juni = DB::table('rentmobils')->select('rentmobils.*')->whereMonth('created_at', "06")->get();
+        $juli = DB::table('rentmobils')->select('rentmobils.*')->whereMonth('created_at', "07")->get();
+        $agustus = DB::table('rentmobils')->select('rentmobils.*')->whereMonth('created_at', "08")->get();
+        $september = DB::table('rentmobils')->select('rentmobils.*')->whereMonth('created_at', "09")->get();
+        $oktober = DB::table('rentmobils')->select('rentmobils.*')->whereMonth('created_at', "10")->get();
+        $november = DB::table('rentmobils')->select('rentmobils.*')->whereMonth('created_at', "11")->get();
+        $desember = DB::table('rentmobils')->select('rentmobils.*')->whereMonth('created_at', "12")->get();
 
 
         $penyewaperbulan =  DB::table('rentmobils')->select('role_id')->whereMonth('created_at', $date_perbulan)->get();
@@ -30,9 +44,10 @@ class BerandaAdminController extends Controller
         // dd($pendapatanperbulan);
         $data = Ui::all();
         view()->share('data', $data);
-        // $pdf= PDF::loadview('main');
-        // $pdf= PDF::loadview('beranda');
+
+        $pdf= PDF::loadview('main');
         // dd($data);
+        // return view('main', compact('januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'desember'));
         return view('beranda', compact('pendapatanpertahun', 'pendapatanperbulan', 'penyewaperbulan', 'penyewapertahun'));
         // Return load
     }

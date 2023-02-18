@@ -1,5 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php $total_j = 0; ?>
+<?php $total_f = 0; ?>
+<?php $total_ma = 0; ?>
+<?php $total_a = 0; ?>
+<?php $total_me = 0; ?>
+<?php $total_jun = 0; ?>
+<?php $total_jul = 0; ?>
+<?php $total_agu = 0; ?>
+<?php $total_s = 0; ?>
+<?php $total_o = 0; ?>
+<?php $total_n = 0; ?>
+<?php $total_d = 0; ?>
+
+<?php $p_j = 0; ?>
+<?php $p_f = 0; ?>
+<?php $p_ma = 0; ?>
+<?php $p_a = 0; ?>
+<?php $p_me = 0; ?>
+<?php $p_jun = 0; ?>
+<?php $p_jul = 0; ?>
+<?php $p_agu = 0; ?>
+<?php $p_s = 0; ?>
+<?php $p_o = 0; ?>
+<?php $p_n = 0; ?>
+<?php $p_d = 0; ?>
+
+<?php foreach ($data as $j) {
+    if (date('m', strtotime($j->created_at)) == 1) {
+        $total_j += $j->total_dp;
+        $p_j += $j->role_id;
+    } elseif (date('m', strtotime($j->created_at)) == 2) {
+        $total_f += $j->total_dp;
+        $p_f += $j->role_id;
+    } elseif (date('m', strtotime($j->created_at)) == 3) {
+        $total_ma += $j->total_dp;
+        $p_ma += $j->role_id;
+    } elseif (date('m', strtotime($j->created_at)) == 4) {
+        $total_a += $j->total_dp;
+        $p_a += $j->role_id;
+    } elseif (date('m', strtotime($j->created_at)) == 5) {
+        $total_me += $j->total_dp;
+        $p_me += $j->role_id;
+    } elseif (date('m', strtotime($j->created_at)) == 6) {
+        $total_jun += $j->total_dp;
+        $p_jun += $j->role_id;
+    } elseif (date('m', strtotime($j->created_at)) == 7) {
+        $total_jul += $j->total_dp;
+        $p_jul += $j->role_id;
+    } elseif (date('m', strtotime($j->created_at)) == 8) {
+        $total_agu += $j->total_dp;
+        $p_agu += $j->role_id;
+    } elseif (date('m', strtotime($j->created_at)) == 9) {
+        $total_s += $j->total_dp;
+        $p_s += $j->role_id;
+    } elseif (date('m', strtotime($j->created_at)) == 10) {
+        $total_o += $j->total_dp;
+        $p_o += $j->role_id;
+    } elseif (date('m', strtotime($j->created_at)) == 11) {
+        $total_n += $j->total_dp;
+        $p_n += $j->role_id;
+    } elseif (date('m', strtotime($j->created_at)) == 12) {
+        $total_d += $j->total_dp;
+        $p_d += $j->role_id;
+    }
+} ?>
+
+
 
 <head>
     <meta charset="utf-8">
@@ -73,7 +140,12 @@
             <a href="" class="brand-link">
                 <img src="{{ asset('assets/img/Admin.png') }}" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
-                <strong class="brand-text">Admin</strong>
+                <strong class="brand-text">Admin {{ $p_j }}, {{ $p_f }}, {{ $p_ma }},
+                    {{ $p_a }},
+                    {{ $p_me }}, {{ $p_jun }}, {{ $p_jul }},
+                    {{ $p_agu }},
+                    {{ $p_s }}, {{ $p_o }}, {{ $p_n }},
+                    {{ $p_d }}</strong>
 
             </a>
 
@@ -127,6 +199,12 @@
     <!-- Select2 -->
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/chart.js/Chart.min.js') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.min.js"
+        integrity="sha512-v3ygConQmvH0QehvQa6gSvTE2VdBZ6wkLOlmK7Mcy2mZ0ZF9saNbbk19QeaoTHdWIEiTlWmrwAL4hS8ElnGFbA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     {{-- <script src="{{ asset('assets/js/dashboard.js') }}"></script> --}}
 
     {{-- <script src="{{ asset('assets/js/demo.js') }}"></script> --}}
@@ -158,6 +236,113 @@
     </script>
     {{-- {{ $pendapatanpertahun }} --}}
 
+
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
+                    'Oktober',
+                    'November', 'Desember'
+                ],
+                datasets: [{
+                    label: 'Pendapatan',
+                    backgroundColor: 'rgba(143,206,0)',
+                    borderColor: 'rgba(143,206,0)',
+                    pointRadius: false,
+                    pointColor: '#8FCE00',
+                    pointStrokeColor: 'rgba(143,206,0)',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(143,206,0)',
+
+                    data: [{{ $total_j }}, {{ $total_f }}, {{ $total_ma }},
+                        {{ $total_a }},
+                        {{ $total_me }}, {{ $total_jun }}, {{ $total_jul }},
+                        {{ $total_agu }},
+                        {{ $total_s }}, {{ $total_o }}, {{ $total_n }},
+                        {{ $total_d }}
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                locale: 'id-ID',
+                scales: {
+                    y: {
+                        ticks: {
+                            callback: (
+                                value,
+                                index,
+                                values
+                            ) => {
+                                return new Intl.NumberFormat('id-ID', {
+                                    style: 'currency',
+                                    currency: 'IDR',
+                                    maximumSignificanDigits: 3
+                                }).format(value);
+                            }
+                        },
+                        beginAtZero: true
+                    },
+
+                }
+            }
+        });
+    </script>
+
+    <script>
+        const ctxx = document.getElementById('myChartdua');
+
+        new Chart(ctxx, {
+            type: 'bar',
+            data: {
+                labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
+                    'Oktober',
+                    'November', 'Desember'
+                ],
+                datasets: [{
+                    label: 'Penyewa',
+                    backgroundColor: 'rgba(60,141,188,0.9)',
+                    borderColor: 'rgba(60,141,188,0.8)',
+                    pointRadius: false,
+                    pointColor: '#3b8bba',
+                    pointStrokeColor: 'rgba(60,141,188,1)',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(60,141,188,1)',
+
+                    data: [{{ $p_j }}, {{ $p_f }}, {{ $p_ma }},
+                        {{ $p_a }},
+                        {{ $p_me }}, {{ $p_jun }}, {{ $p_jul }},
+                        {{ $p_agu }},
+                        {{ $p_s }}, {{ $p_o }}, {{ $p_n }},
+                        {{ $p_d }}
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                locale: 'id-ID',
+                scales: {
+                    y: {
+                        ticks: {
+                            callback: (
+                                value,
+                                index,
+                                values
+                            ) => {
+                                return new Intl.NumberFormat('id-ID', {
+                                    maximumSignificanDigits: 3
+                                }).format(value);
+                            }
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -201,6 +386,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js"
         integrity="sha512-2bMhOkE/ACz21dJT8zBOMgMecNxx0d37NND803ExktKiKdSzdwn+L7i9fdccw/3V06gM/DBWKbYmQvKMdAA9Nw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </body>
 
 </html>
